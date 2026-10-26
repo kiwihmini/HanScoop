@@ -494,6 +494,60 @@ main{ display:block; }
 /* homework */
 .homework li{ align-items:flex-start; line-height:1.7; }
 .homework li .chk{ background:var(--coral); margin-top:3px; }
+
+/* ---------- 2기 모집 팝업 ---------- */
+.recruit-modal{
+  position:fixed; inset:0; z-index:100;
+  background:rgba(91,70,54,.45); backdrop-filter:blur(3px);
+  display:flex; align-items:center; justify-content:center; padding:16px;
+}
+.recruit-modal[hidden]{ display:none; }
+.rm-card{
+  position:relative; width:100%; max-width:420px; max-height:calc(100svh - 32px); overflow:auto;
+  border-radius:28px; text-align:center; padding:44px 26px 22px;
+  background:
+    radial-gradient(300px 220px at 92% 4%, rgba(255,217,230,.95), transparent 60%),
+    radial-gradient(300px 220px at 0% 100%, rgba(211,244,230,.95), transparent 60%),
+    var(--cream);
+  box-shadow:0 24px 50px rgba(91,70,54,.3);
+  animation:rmIn .35s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes rmIn{ from{ opacity:0; transform:translateY(20px) scale(.96);} to{ opacity:1; transform:none;} }
+.rm-close{
+  position:absolute; top:12px; left:14px; width:36px; height:36px; border-radius:50%;
+  border:none; background:#fff; color:var(--ink); font-size:18px; cursor:pointer;
+  box-shadow:0 4px 10px rgba(91,70,54,.12);
+}
+.rm-card:focus{ outline:none; }
+.rm-close:focus-visible, .rm-cta:focus-visible, .rm-skip:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; }
+.rm-stamp{
+  position:absolute; top:16px; right:16px; transform:rotate(4deg);
+  background:var(--coral); color:#fff; font-weight:800; font-size:13px;
+  padding:7px 14px; border-radius:100px; box-shadow:0 6px 12px rgba(255,140,122,.35);
+}
+.rm-logo{ width:130px; margin:0 auto; filter:drop-shadow(0 8px 14px rgba(255,140,122,.3)); }
+.rm-kicker{ font-weight:700; font-size:12px; letter-spacing:3px; color:var(--ink-soft); margin-top:12px; }
+.rm-card h2{ font-family:var(--cute); font-weight:400; font-size:44px; line-height:1.15; margin-top:4px; color:var(--ink); }
+.rm-card h2 span{ color:var(--coral); }
+.rm-sub{ font-size:15.5px; font-weight:700; line-height:1.6; margin-top:12px; color:var(--ink); }
+.rm-sub b{ background:linear-gradient(transparent 58%, var(--butter) 58%); }
+.rm-chips{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+.rm-chips span{ background:#fff; border:2px solid var(--butter); border-radius:100px; padding:7px 14px; font-size:13.5px; font-weight:700; }
+.rm-cta{
+  margin-top:22px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background:var(--ink); color:#fff; text-decoration:none; text-align:left;
+  border-radius:18px; padding:16px 20px; transition:transform .2s ease;
+}
+.rm-cta:hover{ transform:translateY(-3px); }
+.rm-cta .l{ font-size:12.5px; opacity:.8; font-weight:600; }
+.rm-cta .big{ font-family:var(--cute); font-size:21px; margin-top:2px; }
+.rm-cta .big span{ color:var(--butter); }
+.rm-cta .env{ font-size:34px; animation:bob 3s ease-in-out infinite; }
+.rm-hint{ font-size:12px; color:var(--ink-soft); margin-top:8px; }
+.rm-skip{
+  margin-top:14px; background:none; border:none; cursor:pointer;
+  font-size:13px; color:var(--ink-soft); text-decoration:underline;
+}
 </style>
 </head>
 <body>
@@ -1249,7 +1303,7 @@ main{ display:block; }
           <b>📌 활동 안내</b><br>
           · 매달 1회 <b>수요일</b> 정기 활동 (탄천체육관)<br>
           · 준비물: 운동복, 실내화, 스쿼시 라켓<br>
-          · <b>문의·신청: 회장 위현민 (Process Innovation팀)</b>
+          · <b>문의·신청: <a href="https://teams.microsoft.com/l/chat/0/0?users=hwi@hanonsystems.com&amp;message=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%21%20%ED%95%9C%EC%8A%A4%EC%BF%B1%202%EA%B8%B0%20%EA%B0%80%EC%9E%85%20%EB%AC%B8%EC%9D%98%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4%20%F0%9F%8E%BE" target="_blank" rel="noopener" style="color:inherit;">회장 위현민 (Process Innovation팀) 💌</a></b>
         </div>
       </div>
     </div>
@@ -1288,6 +1342,26 @@ main{ display:block; }
   <b>한온시스템 스쿼시 쿱스</b> · 한스쿱 · HANON SQUASH COOP 🎾
 </footer>
 
+<!-- 2기 모집 팝업 -->
+<div class="recruit-modal" id="recruit-modal" role="dialog" aria-modal="true" aria-labelledby="rm-title" hidden>
+  <div class="rm-card" tabindex="-1">
+    <button class="rm-close" type="button" aria-label="닫기" data-rm-close>✕</button>
+    <div class="rm-stamp">2기 모집중</div>
+    <img class="rm-logo" id="rm-logo" alt="한스쿱 로고">
+    <div class="rm-kicker">HANON SQUASH COOP</div>
+    <h2 id="rm-title">한스쿱 <span>회원 모집</span></h2>
+    <p class="rm-sub">우리도 다 <b>초보로 시작했어요</b><br>스쿼시에 관심 있다면 누구든 환영 🙌</p>
+    <div class="rm-chips"><span>🗓️ 매달 1회 수요일 정기 활동</span><span>📍 탄천체육관</span></div>
+    <a class="rm-cta" href="https://teams.microsoft.com/l/chat/0/0?users=hwi@hanonsystems.com&amp;message=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%21%20%ED%95%9C%EC%8A%A4%EC%BF%B1%202%EA%B8%B0%20%EA%B0%80%EC%9E%85%20%EB%AC%B8%EC%9D%98%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4%20%F0%9F%8E%BE" target="_blank" rel="noopener">
+      <div><div class="l">관심 있다면 부담 없이 연락 주세요!</div>
+      <div class="big">문의 · 신청 → <span>회장 위현민</span></div></div>
+      <div class="env" aria-hidden="true">💌</div>
+    </a>
+    <div class="rm-hint">편지를 누르면 팀즈 채팅으로 바로 연결돼요</div>
+    <button class="rm-skip" type="button" data-rm-today>오늘 하루 보지 않기</button>
+  </div>
+</div>
+
 <script>
   const els = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
@@ -1317,6 +1391,27 @@ main{ display:block; }
       });
     });
   });
+  // ---- 2기 모집 팝업 ----
+  (function(){
+    const modal = document.getElementById('recruit-modal');
+    const KEY = 'hanscoop-recruit-hide-until';
+    let hideUntil = 0;
+    try { hideUntil = Number(localStorage.getItem(KEY)) || 0; } catch(e){}
+    if (Date.now() < hideUntil) return;
+    document.getElementById('rm-logo').src = document.querySelector('.hero-logo').src;
+    const close = ()=>{ modal.hidden = true; document.removeEventListener('keydown', onKey); };
+    const onKey = e=>{ if(e.key === 'Escape') close(); };
+    modal.addEventListener('click', e=>{ if(e.target === modal) close(); });
+    modal.querySelector('[data-rm-close]').addEventListener('click', close);
+    modal.querySelector('[data-rm-today]').addEventListener('click', ()=>{
+      const end = new Date(); end.setHours(24,0,0,0);
+      try { localStorage.setItem(KEY, String(end.getTime())); } catch(e){}
+      close();
+    });
+    document.addEventListener('keydown', onKey);
+    modal.hidden = false;
+    modal.querySelector('.rm-card').focus();
+  })();
 </script>
 </body>
 </html>
