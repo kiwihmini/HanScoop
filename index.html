@@ -576,6 +576,61 @@ main{ display:block; }
 .tv-panel .knobs i + i{ background:var(--mint-deep); }
 .tv-stand{ width:90px; height:12px; margin:0 auto; background:var(--ink); border-radius:0 0 12px 12px; opacity:.85; }
 .tv-cap{ text-align:center; font-size:13.5px; color:var(--ink-soft); margin-top:14px; font-weight:600; }
+
+/* ---------- 2기 합류 가이드 (모든 탭 공통) ---------- */
+.join{
+  padding:90px 0 100px;
+  background:linear-gradient(180deg, var(--cream) 0%, var(--pink) 100%);
+  border-top:2px dashed var(--pink-deep);
+}
+.join-stats{ display:flex; flex-wrap:wrap; gap:14px; margin:6px 0 34px; }
+.join-stats > div{
+  flex:1 1 160px; background:#fff; border-radius:18px; padding:18px; text-align:center;
+  box-shadow:0 8px 18px rgba(91,70,54,.08);
+}
+.join-stats .num{ font-family:var(--cute); font-size:32px; color:var(--coral); }
+.join-stats .lbl{ font-size:13.5px; color:var(--ink-soft); margin-top:2px; }
+.steps{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:34px; counter-reset:step; }
+@media(min-width:960px){ .steps{ grid-template-columns:repeat(4,1fr); } }
+@media(max-width:480px){ .steps{ grid-template-columns:1fr; } }
+.steps > div{
+  background:#fff; border-radius:18px; padding:20px; position:relative;
+  box-shadow:0 8px 18px rgba(91,70,54,.08);
+}
+.steps .em{ font-size:28px; }
+.steps h4{ font-family:var(--cute); font-weight:400; font-size:17px; margin:8px 0 4px; }
+.steps h4::before{ counter-increment:step; content:counter(step) ". "; color:var(--coral); }
+.steps p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); }
+.faq{ display:flex; flex-direction:column; gap:10px; margin-bottom:34px; }
+.faq details{ background:#fff; border-radius:16px; padding:16px 20px; box-shadow:0 6px 14px rgba(91,70,54,.06); }
+.faq summary{ cursor:pointer; font-weight:700; font-size:15px; list-style:none; display:flex; justify-content:space-between; gap:10px; }
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{ content:'+'; color:var(--coral); font-size:20px; line-height:1; }
+.faq details[open] summary::after{ content:'–'; }
+.faq summary:focus-visible{ outline:3px solid var(--ink); outline-offset:4px; border-radius:6px; }
+.faq details p{ font-size:14.5px; line-height:1.8; color:var(--ink-soft); margin-top:10px; }
+.join-cta{ display:flex; flex-wrap:wrap; gap:12px; align-items:stretch; }
+.join-cta .rm-cta{ flex:1 1 320px; margin-top:0; }
+.share-btn{
+  flex:0 1 auto; border:2px solid var(--ink); background:#fff; color:var(--ink);
+  border-radius:18px; padding:14px 22px; font-weight:800; font-size:15px; cursor:pointer;
+}
+.share-btn:hover{ background:var(--butter); }
+.share-btn:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; }
+.share-note{ font-size:13px; color:var(--ink-soft); margin-top:10px; min-height:1.2em; }
+
+/* floating join button */
+.fab-join{
+  position:fixed; right:16px; bottom:16px; z-index:60;
+  display:flex; align-items:center; gap:8px;
+  background:var(--coral); color:#fff; text-decoration:none;
+  font-family:var(--cute); font-size:16px; padding:13px 20px; border-radius:100px;
+  box-shadow:0 10px 22px rgba(255,140,122,.45);
+  transition:transform .25s ease, opacity .25s ease;
+}
+.fab-join:hover{ transform:translateY(-3px); }
+.fab-join:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; }
+.fab-join.hide{ opacity:0; pointer-events:none; transform:translateY(12px); }
 </style>
 </head>
 <body>
@@ -1665,6 +1720,47 @@ main{ display:block; }
 </section>
 </main>
 
+<!-- ===================== 2기 합류 가이드 (모든 탭 공통) ===================== -->
+<section class="join" id="join">
+  <div class="wrap">
+    <div class="chapter reveal">📣 JOIN US</div>
+    <h2 class="section-title reveal">한스쿱 <span class="hl">2기</span>, 이렇게 합류해요</h2>
+
+    <div class="join-stats reveal">
+      <div><div class="num">3편</div><div class="lbl">차곡차곡 쌓인 활동 기록</div></div>
+      <div><div class="num">+2명</div><div class="lbl">벌써 합류한 2기 멤버</div></div>
+      <div><div class="num">월 1회</div><div class="lbl">부담 없는 수요일 정기 활동</div></div>
+    </div>
+
+    <div class="steps">
+      <div class="reveal"><div class="em">💌</div><h4>팀즈로 한마디</h4><p>회장 위현민에게 "관심 있어요!" 한 줄이면 충분해요.</p></div>
+      <div class="reveal"><div class="em">🗓️</div><h4>일정 안내 받기</h4><p>다음 수요일 정기 활동 일정과 장소를 알려드려요.</p></div>
+      <div class="reveal"><div class="em">👟</div><h4>운동복·실내화만</h4><p>라켓은 체육관에서 대여할 수 있어서 빈손으로 와도 OK.</p></div>
+      <div class="reveal"><div class="em">🎾</div><h4>같이 치고, 같이 먹기</h4><p>그룹별 기본기 연습과 게임, 끝나면 다 같이 식사까지!</p></div>
+    </div>
+
+    <h3 class="reveal" style="font-family:var(--cute); font-weight:400; font-size:22px; margin-bottom:14px;">자주 묻는 질문 🙋</h3>
+    <div class="faq reveal">
+      <details><summary>스쿼시를 한 번도 안 쳐봤는데 괜찮을까요?</summary><p>물론이죠! 한스쿱은 스쿼시 초보자들로 구성된 크루예요. 실력에 맞춰 그룹을 나눠 기본기부터 연습하니까 처음이어도 편하게 오세요.</p></details>
+      <details><summary>라켓이 없어요.</summary><p>탄천체육관에서 라켓을 대여할 수 있어요. 운동복과 실내화만 챙겨 오시면 돼요.</p></details>
+      <details><summary>언제, 어디서 활동하나요?</summary><p>매달 1회 수요일, 탄천체육관에서 정기 활동을 해요. 정확한 일정은 문의 주시면 안내해 드려요.</p></details>
+      <details><summary>매번 꼭 나와야 하나요?</summary><p>부담 갖지 마세요. 월 1회 정기 활동이라 일정 맞을 때 편하게 함께하면 돼요.</p></details>
+    </div>
+
+    <div class="join-cta reveal">
+      <a class="rm-cta" href="https://teams.microsoft.com/l/chat/0/0?users=hwi@hanonsystems.com&amp;message=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%21%20%ED%95%9C%EC%8A%A4%EC%BF%B1%202%EA%B8%B0%20%EA%B0%80%EC%9E%85%20%EB%AC%B8%EC%9D%98%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4%20%F0%9F%8E%BE" target="_blank" rel="noopener">
+        <div><div class="l">관심 있다면 부담 없이 연락 주세요!</div>
+        <div class="big">문의 · 신청 → <span>회장 위현민</span></div></div>
+        <div class="env" aria-hidden="true">💌</div>
+      </a>
+      <button class="share-btn" type="button" id="share-btn">🔗 동료에게 공유하기</button>
+    </div>
+    <p class="share-note" id="share-note" aria-live="polite"></p>
+  </div>
+</section>
+
+<a class="fab-join" href="#join" id="fab-join"><span aria-hidden="true">💌</span> 2기 지원하기</a>
+
 <footer>
   <b>한온시스템 스쿼시 쿱스</b> · 한스쿱 · HANON SQUASH COOP 🎾
 </footer>
@@ -1718,6 +1814,30 @@ main{ display:block; }
       });
     });
   });
+  // ---- 공유 버튼 ----
+  (function(){
+    const btn = document.getElementById('share-btn');
+    const note = document.getElementById('share-note');
+    const url = 'https://kiwihmini.github.io/HanScoop/';
+    btn.addEventListener('click', async ()=>{
+      const data = { title:'한스쿱 2기 회원 모집', text:'스쿼시 초보 크루 한스쿱에서 2기 멤버를 모집해요! 🎾', url };
+      try {
+        if (navigator.share) { await navigator.share(data); return; }
+        await navigator.clipboard.writeText(url);
+        note.textContent = '링크를 복사했어요! 팀즈나 메신저에 붙여넣어 주세요 📋';
+      } catch(e) {
+        if (e && e.name === 'AbortError') return;
+        note.textContent = '링크: ' + url;
+      }
+    });
+  })();
+  // ---- 플로팅 지원 버튼: 합류 섹션이 보이면 숨김 ----
+  (function(){
+    const fab = document.getElementById('fab-join');
+    const join = document.getElementById('join');
+    fab.addEventListener('click', e=>{ e.preventDefault(); join.scrollIntoView({behavior:'smooth'}); });
+    new IntersectionObserver(es=>es.forEach(en=>fab.classList.toggle('hide', en.isIntersecting)), {threshold:.1}).observe(join);
+  })();
   // ---- 미니 TV: 자동재생이 막히면 재생 버튼을 보여줌 ----
   document.querySelectorAll('.tv-screen video').forEach(v=>{
     const p = v.play();
