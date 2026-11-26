@@ -1718,6 +1718,11 @@ main{ display:block; }
       });
     });
   });
+  // ---- 미니 TV: 자동재생이 막히면 재생 버튼을 보여줌 ----
+  document.querySelectorAll('.tv-screen video').forEach(v=>{
+    const p = v.play();
+    if (p && p.catch) p.catch(()=>{ v.controls = true; });
+  });
   // ---- 2기 모집 팝업 ----
   (function(){
     const modal = document.getElementById('recruit-modal');
