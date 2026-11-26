@@ -550,6 +550,8 @@ main{ display:block; }
 .rm-cta .big span{ color:var(--butter); }
 .rm-cta .env{ font-size:34px; animation:bob 3s ease-in-out infinite; }
 .rm-hint{ font-size:12px; color:var(--ink-soft); margin-top:8px; }
+.rm-faq{ display:block; margin-top:12px; font-size:13.5px; font-weight:700; color:var(--coral); text-decoration:none; }
+.rm-faq:hover{ text-decoration:underline; }
 .rm-skip{
   margin-top:14px; background:none; border:none; cursor:pointer;
   font-size:13px; color:var(--ink-soft); text-decoration:underline;
@@ -579,6 +581,7 @@ main{ display:block; }
 
 /* ---------- 2기 합류 가이드 (모든 탭 공통) ---------- */
 .join{
+  scroll-margin-top:70px;
   padding:90px 0 100px;
   background:linear-gradient(180deg, var(--cream) 0%, var(--pink) 100%);
   border-top:2px dashed var(--pink-deep);
@@ -1739,11 +1742,11 @@ main{ display:block; }
       <div class="reveal"><div class="em">🎾</div><h4>같이 치고, 같이 먹기</h4><p>그룹별 기본기 연습과 게임, 끝나면 다 같이 식사까지!</p></div>
     </div>
 
-    <h3 class="reveal" style="font-family:var(--cute); font-weight:400; font-size:22px; margin-bottom:14px;">자주 묻는 질문 🙋</h3>
+    <h3 class="reveal" id="faq" style="font-family:var(--cute); font-weight:400; font-size:22px; margin-bottom:14px;">자주 묻는 질문 🙋</h3>
     <div class="faq reveal">
-      <details><summary>어떤 사람들이 활동하나요?</summary><p>자금팀, 세무팀, Process Innovation팀, Proactive Culture팀, Platform Software팀 등 여러 팀의 한온 동료들이 함께하고 있어요. 모두 스쿼시 초보로 시작해서 같이 배워가는 중이에요.</p></details>
-      <details><summary>스쿼시를 한 번도 안 쳐봤는데 괜찮을까요?</summary><p>물론이죠! 한스쿱은 스쿼시 초보자들로 구성된 크루예요. 실력에 맞춰 그룹을 나눠 기본기부터 연습하니까 처음이어도 편하게 오세요.</p></details>
-      <details><summary>누구나 참여할 수 있나요? 한온 임직원이 아니어도요?</summary><p>네! 스쿼시에 관심 있고 함께 즐겁게 운동할 분이라면 누구든 환영해요. 한온 임직원이 아니라면 팀즈 대신 아는 한스쿱 멤버를 통해 연락 주세요.</p></details>
+      <details><summary>어떤 사람들이 활동하나요?</summary><p>자금팀, 세무팀, Process Innovation팀, Proactive Culture팀, Platform Software팀 등 여러 팀의 동료들이 함께하고 있어요. <b>스쿼시 초보도 있고, 게임 가능한 인원도 있어요.</b></p></details>
+      <details><summary>스쿼시를 한 번도 안 쳐봤는데 괜찮을까요?</summary><p>물론이죠! 초보 멤버도 많고, 실력에 맞춰 그룹을 나눠 기본기부터 연습하니까 처음이어도 편하게 오세요.</p></details>
+      <details><summary>누구나 참여할 수 있나요? 다른 계열사도 되나요?</summary><p>네! <b>한국앤컴퍼니 계열사 분들이라면 모두 환영</b>해요. 팀즈로 회장 위현민에게 편하게 연락 주세요.</p></details>
       <details><summary>라켓이 없어요.</summary><p>탄천체육관에서 라켓을 대여할 수 있어요. 운동복과 실내화만 챙겨 오시면 돼요.</p></details>
       <details><summary>언제, 어디서 활동하나요?</summary><p>매달 1회 수요일, 탄천체육관에서 정기 활동을 해요. 정확한 일정은 문의 주시면 안내해 드려요.</p></details>
       <details><summary>매번 꼭 나와야 하나요?</summary><p>부담 갖지 마세요. 월 1회 정기 활동이라 일정 맞을 때 편하게 함께하면 돼요.</p></details>
@@ -1783,6 +1786,7 @@ main{ display:block; }
       <div class="env" aria-hidden="true">💌</div>
     </a>
     <div class="rm-hint">편지를 누르면 팀즈 채팅으로 바로 연결돼요</div>
+    <a class="rm-faq" href="#join" data-rm-faq>궁금한 점은? 자주 묻는 질문 보기 →</a>
     <button class="rm-skip" type="button" data-rm-today>오늘 하루 보지 않기</button>
   </div>
 </div>
@@ -1857,6 +1861,10 @@ main{ display:block; }
     const onKey = e=>{ if(e.key === 'Escape') close(); };
     modal.addEventListener('click', e=>{ if(e.target === modal) close(); });
     modal.querySelector('[data-rm-close]').addEventListener('click', close);
+    modal.querySelector('[data-rm-faq]').addEventListener('click', e=>{
+      e.preventDefault(); close();
+      document.getElementById('join').scrollIntoView({behavior:'smooth'});
+    });
     modal.querySelector('[data-rm-today]').addEventListener('click', ()=>{
       const end = new Date(); end.setHours(24,0,0,0);
       try { localStorage.setItem(KEY, String(end.getTime())); } catch(e){}
